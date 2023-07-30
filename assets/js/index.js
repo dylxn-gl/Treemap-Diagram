@@ -1,15 +1,15 @@
 //API
-let movieDataUrl =
+const movieDataUrl =
   "https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-data.json";
 
 let movieData;
 
 //Creacion del svg y tooltip
-let canvas = d3.select("#canvas");
-let tooltip = d3.select("#tooltip");
+const canvas = d3.select("#canvas");
+const tooltip = d3.select("#tooltip");
 
-let drawTreeMap = () => {
-  let hierarchy = d3
+const drawTreeMap = () => {
+  const hierarchy = d3
     .hierarchy(movieData, (node) => {
       return node["children"];
     })
@@ -20,14 +20,14 @@ let drawTreeMap = () => {
       return node2["value"] - node1["value"];
     });
 
-  let createTreeMap = d3.treemap().size([1000, 600]);
+  const createTreeMap = d3.treemap().size([1000, 600]);
 
   createTreeMap(hierarchy);
 
-  let movieTiles = hierarchy.leaves();
+  const movieTiles = hierarchy.leaves();
   console.log(movieTiles);
 
-  let block = canvas
+  const block = canvas
     .selectAll("g")
     .data(movieTiles)
     .enter()
@@ -40,7 +40,7 @@ let drawTreeMap = () => {
     .append("rect")
     .attr("class", "tile")
     .attr("fill", (movie) => {
-      let category = movie["data"]["category"];
+      const category = movie["data"]["category"];
       if (category === "Action") {
         return "#01c380";
       } else if (category === "Drama") {
@@ -75,7 +75,7 @@ let drawTreeMap = () => {
     .on("mouseover", (movie) => {
       tooltip.transition().style("visibility", "visible");
 
-      let revenue = movie["data"]["value"]
+      const revenue = movie["data"]["value"]
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
